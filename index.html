@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIMUJI | ดูหนังออนไลน์ อนิเมะ ซีรีส์</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">KIMUJI</a>
+      <nav class="nav-links">
+        <ul>
+          <li><a href="#" class="active" data-filter="all">หน้าแรก</a></li>
+          <li><a href="#" data-filter="movie">หนัง</a></li>
+          <li><a href="#" data-filter="series">ซีรีส์</a></li>
+          <li><a href="#" data-filter="anime">อนิเมะ</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="ค้นหา...">
+          <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="auth-links" id="auth-container">
+          <!-- เนื้อหาส่วนนี้จะถูกเปลี่ยนโดย JavaScript -->
+        </div>
+      </div>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-background"></div>
+      <div class="hero-content">
+        <h1>สุดยอดความบันเทิง</h1>
+        <p>ค้นพบหนังใหม่ ซีรีส์ดัง และอนิเมะสุดมันส์ได้ที่นี่</p>
+        <a href="#movies-section" class="cta-button">เริ่มรับชม</a>
+      </div>
+    </section>
+
+    <div class="page-container">
+      <section class="content-section" id="movies-section">
+        <h2>หนังแนะนำสำหรับคุณ</h2>
+        <div class="content-grid" id="movies-grid"></div>
+      </section>
+
+      <section class="content-section" id="series-section">
+        <h2>ซีรีส์ยอดนิยม</h2>
+        <div class="content-grid" id="series-grid"></div>
+      </section>
+
+      <section class="content-section" id="anime-section">
+        <h2>อนิเมะมาใหม่</h2>
+        <div class="content-grid" id="anime-grid"></div>
+      </section>
+      
+      <section class="content-section" id="search-results-section" style="display: none;">
+        <h2>ผลการค้นหา</h2>
+        <div class="content-grid" id="search-results-grid"></div>
+        <p id="no-results-message" style="display: none;">ไม่พบผลลัพธ์ที่ตรงกัน</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer"><!-- ... footer content as before ... --></footer>
+
+  <!-- Add Content Modal -->
+  <div id="add-content-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <form id="add-content-form" class="modal-form">
+        <h2>เพิ่มเนื้อหาใหม่</h2>
+        <div class="form-group">
+          <label for="content-title">ชื่อเรื่อง</label>
+          <input type="text" id="content-title" required>
+        </div>
+        <div class="form-group">
+          <label for="content-year">ปีที่ฉาย</label>
+          <input type="number" id="content-year" required>
+        </div>
+        <div class="form-group">
+          <label for="content-genre">แนว</label>
+          <input type="text" id="content-genre" placeholder="เช่น Action, Sci-Fi" required>
+        </div>
+        <div class="form-group">
+          <label for="content-type">ประเภท</label>
+          <select id="content-type" required>
+            <option value="movie">หนัง</option>
+            <option value="series">ซีรีส์</option>
+            <option value="anime">อนิเมะ</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="content-image">รูปภาพโปสเตอร์</label>
+          <input type="file" id="content-image" accept="image/*" required>
+          <img id="image-preview" src="#" alt="Image Preview">
+        </div>
+        <button type="submit">เพิ่มเนื้อหา</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- 1. DATA (Simulated Database) ---
+      let allContent = [
+        { id: 1, title: 'Dune: Part Two', year: 2024, genre: 'Sci-Fi, Adventure', type: 'movie', imageUrl: 'https://beam-images.warnermediacdn.com/2024-05/scrid-1926466218111380_wb_duneparttwo_3000x3000_2024_lan-en-us_pur-tileburnedin.jpg?host=wbd-dotcom-drupal-prd-us-east-1.s3.amazonaws.com' },
+        { id: 2, title: 'Furiosa: A Mad Max Saga', year: 2024, genre: 'Action, Sci-Fi', type: 'movie', imageUrl: 'https://m.media-amazon.com/images/M/MV5BNTcwYWE1NTYtOWNiYy00NzY3LWIwY2MtNjJmZDkxNDNmOWE1XkEyXkFqcGc@._V1_.jpg' },
+        { id: 3, title: 'Godzilla x Kong', year: 2024, genre: 'Action, Monster', type: 'movie', imageUrl: 'https://m.media-amazon.com/images/M/MV5BMTY0N2MzODctY2ExYy00OWYxLTkyNDItMTVhZGIxZjliZjU5XkEyXkFqcGc@._V1_.jpg' },
+        { id: 4, title: 'หลานม่า', year: 2024, genre: 'Drama, Family', type: 'movie', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCc7KcIMNFqGnYZI2rogQRnbEvDU--MqUYCQ&s' },
+        { id: 5, title: 'Shōgun', year: 2024, genre: 'Drama, War', type: 'series', imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Sh%C5%8Dgun_%282024_miniseries%29_poster.jpg/250px-Sh%C5%8Dgun_%282024_miniseries%29_poster.jpg' },
+        { id: 6, title: 'The Boys', year: 2019, genre: 'Action, Comedy', type: 'series', imageUrl: 'https://m.media-amazon.com/images/M/MV5BMWJlN2U5MzItNjU4My00NTM2LWFjOWUtOWFiNjg3ZTMxZDY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' },
+        { id: 7, title: 'Bridgerton', year: 2020, genre: 'Drama, Romance', type: 'series', imageUrl: 'https://m.media-amazon.com/images/M/MV5BZmRjNDNlMDMtNDZlMS00NzE4LTk0OGMtYjQyMWY3YWFmY2I5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' },
+        { id: 8, title: 'Jujutsu Kaisen', year: 2020, genre: 'Action, Fantasy', type: 'anime', imageUrl: 'https://m.media-amazon.com/images/I/81pt78hktdL._SL1500_.jpg' },
+        { id: 9, title: 'Kaiju No. 8', year: 2024, genre: 'Action, Sci-Fi', type: 'anime', imageUrl: 'https://m.media-amazon.com/images/M/MV5BM2VmNTc3OWQtOTVmMy00MGZlLTk3N2QtM2YwZDE5MWVjZmM5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' },
+      ];
+
+      // --- 2. RENDER FUNCTIONS ---
+      // (Render functions are the same as before)
+      const createContentCard = (item) => `
+        <div class="movie-card" data-id="${item.id}">
+          <div class="card-image">
+            <img src="${item.imageUrl}" alt="${item.title}">
+            <div class="image-overlay"><i class="fas fa-play"></i></div>
+          </div>
+          <div class="card-info">
+            <h3>${item.title}</h3>
+            <p>${item.year} • ${item.genre}</p>
+          </div>
+        </div>`;
+      
+      const renderContent = (container, content) => {
+        container.innerHTML = content.map(createContentCard).join('');
+      };
+
+      const renderAllSections = () => {
+        renderContent(document.getElementById('movies-grid'), allContent.filter(c => c.type === 'movie'));
+        renderContent(document.getElementById('series-grid'), allContent.filter(c => c.type === 'series'));
+        renderContent(document.getElementById('anime-grid'), allContent.filter(c => c.type === 'anime'));
+      };
+
+      // --- 3. LOGIN STATE MANAGEMENT ---
+      const authContainer = document.getElementById('auth-container');
+      const loggedInUser = localStorage.getItem('loggedInUser');
+
+      if (loggedInUser) {
+        let adminButton = '';
+        // Only show 'Add Content' button if user is admin
+        if (loggedInUser === 'admin') {
+          adminButton = `<button id="add-content-btn"><i class="fas fa-plus"></i> เพิ่มเนื้อหา</button>`;
+        }
+
+        authContainer.innerHTML = `
+          <div class="user-profile">
+            <i class="fas fa-user-circle"></i>
+            <span>${loggedInUser}</span>
+            <a href="#" id="logout-btn" class="logout-btn">ออกจากระบบ</a>
+          </div>
+          ${adminButton}`; // Add the button here
+        
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('loggedInUser');
+          window.location.reload();
+        });
+      } else {
+        authContainer.innerHTML = `<a href="login.html" class="login-btn">เข้าสู่ระบบ</a>`;
+      }
+      
+      // --- 4. MODAL & FORM HANDLING (NEW) ---
+      const modal = document.getElementById('add-content-modal');
+      const addContentBtn = document.getElementById('add-content-btn');
+      const closeBtn = document.querySelector('.close-btn');
+      const addContentForm = document.getElementById('add-content-form');
+      const imageInput = document.getElementById('content-image');
+      const imagePreview = document.getElementById('image-preview');
+
+      // Open modal
+      if (addContentBtn) {
+        addContentBtn.onclick = () => {
+          modal.style.display = 'block';
+        }
+      }
+
+      // Close modal
+      closeBtn.onclick = () => {
+        modal.style.display = 'none';
+      }
+      window.onclick = (event) => {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+
+      // Image preview handler
+      imageInput.onchange = (evt) => {
+        const [file] = imageInput.files;
+        if (file) {
+          imagePreview.src = URL.createObjectURL(file);
+          imagePreview.style.display = 'block';
+        }
+      }
+
+      // Form submission handler
+      addContentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Get values from form
+        const newItem = {
+          id: Date.now(), // Unique ID based on timestamp
+          title: document.getElementById('content-title').value,
+          year: document.getElementById('content-year').value,
+          genre: document.getElementById('content-genre').value,
+          type: document.getElementById('content-type').value,
+          imageUrl: imagePreview.src
+        };
+
+        // Add new item to the start of the array
+        allContent.unshift(newItem);
+
+        // Re-render all content sections
+        renderAllSections();
+
+        // Close and reset the form
+        modal.style.display = 'none';
+        addContentForm.reset();
+        imagePreview.style.display = 'none';
+        imagePreview.src = '#';
+      });
+
+      // --- 5. SEARCH & FILTER (Existing listeners) ---
+      // (Search and filter logic remains the same)
+      const searchInput = document.getElementById('search-input');
+      const sections = {
+          movies: document.getElementById('movies-section'),
+          series: document.getElementById('series-section'),
+          anime: document.getElementById('anime-section'),
+          searchResults: document.getElementById('search-results-section')
+      };
+      
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        if (searchTerm.length > 0) {
+          Object.values(sections).forEach(s => s.style.display = 'none');
+          sections.searchResults.style.display = 'block';
+
+          const results = allContent.filter(item => item.title.toLowerCase().includes(searchTerm));
+          const resultsGrid = document.getElementById('search-results-grid');
+          const noResultsMsg = document.getElementById('no-results-message');
+
+          if(results.length > 0) {
+            renderContent(resultsGrid, results);
+            noResultsMsg.style.display = 'none';
+          } else {
+            resultsGrid.innerHTML = '';
+            noResultsMsg.style.display = 'block';
+          }
+        } else {
+          filterContent('all');
+        }
+      });
+      
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const filterContent = (filter) => {
+          sections.searchResults.style.display = 'none';
+          sections.movies.style.display = (filter === 'all' || filter === 'movie') ? 'block' : 'none';
+          sections.series.style.display = (filter === 'all' || filter === 'series') ? 'block' : 'none';
+          sections.anime.style.display = (filter === 'all' || filter === 'anime') ? 'block' : 'none';
+
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.dataset.filter === filter) {
+              link.classList.add('active');
+            }
+          });
+          searchInput.value = '';
+      };
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const filter = e.target.dataset.filter;
+          filterContent(filter);
+        });
+      });
+
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinksContainer = document.querySelector('.nav-links');
+      menuToggle.addEventListener('click', () => {
+        navLinksContainer.classList.toggle('active');
+      });
+
+      // --- 6. INITIAL PAGE LOAD ---
+      renderAllSections();
+    });
+  </script>
+</body>
+</html>

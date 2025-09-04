@@ -1,0 +1,332 @@
+/* Reset เบื้องต้น */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global */
+body {
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(135deg, #ffe6f0, #ffd6eb);
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #ff8ac8, #ffb6f9);
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar .logo {
+  font-family: 'Great Vibes', cursive;
+  font-size: 32px;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(255, 0, 150, 0.5);
+}
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  position: relative;
+  transition: 0.3s;
+}
+.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: white;
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+.navbar a:hover::after {
+  width: 100%;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(255, 105, 180, 0.4);
+}
+.search-bar input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  width: 200px;
+}
+.search-bar button {
+  border: none;
+  background: #ff6fcf;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.search-bar button:hover {
+  background: #ff40b0;
+}
+
+/* Hero */
+.hero-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: url('https://www.transparenttextures.com/patterns/pink-dust.png');
+  animation: fadeIn 1.5s ease-in-out;
+}
+.hero-content h1 {
+  font-size: 48px;
+  color: #ff2e92;
+  text-shadow: 2px 2px 6px rgba(255, 105, 180, 0.4);
+}
+.hero-content p {
+  font-size: 20px;
+  margin: 15px 0;
+  color: #555;
+}
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(45deg, #ff5bb7, #ff85dc);
+  padding: 12px 28px;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 6px 15px rgba(255, 0, 150, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.cta-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 0, 150, 0.4);
+}
+
+/* Movies */
+.movie-list-section {
+  padding: 50px 20px;
+  text-align: center;
+}
+.movie-list-section h2 {
+  color: #ff2e92;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+.movie-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(255, 105, 180, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(255, 105, 180, 0.3);
+}
+.movie-card img {
+  width: 100%;
+  border-bottom: 5px solid #ff9cd9;
+}
+.movie-info {
+  padding: 15px;
+}
+.movie-info h3 {
+  color: #ff40b0;
+  margin: 5px 0;
+}
+
+/* Forms (Login/Register) */
+.form-container {
+  background: white;
+  padding: 40px 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #ff2e92;
+  font-size: 28px;
+}
+.form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.form-group label {
+  font-weight: bold;
+  color: #444;
+  font-size: 14px;
+}
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 12px;
+  border: 1px solid #ff9cd9;
+  background: #fff9fc;
+  font-size: 16px;
+  transition: 0.3s;
+  outline: none;
+}
+.form-group input:focus {
+  border-color: #ff40b0;
+  box-shadow: 0 0 8px rgba(255, 64, 176, 0.4);
+  background: #fff;
+}
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(45deg, #ff5bb7, #ff85dc);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 105, 180, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
+}
+.form-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+.form-link a {
+  color: #ff40b0;
+  font-weight: bold;
+  text-decoration: none;
+}
+.form-link a:hover {
+  text-decoration: underline;
+}
+
+/* Movie Page (ดูหนัง) */
+.movie-page {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+}
+.video-player {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+  margin-bottom: 25px;
+}
+.video-player iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+  border-radius: 20px;
+}
+.movie-details {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+.movie-details h1 {
+  color: #ff2e92;
+}
+.comments-section {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.comments-section h2 {
+  margin-top: 0;
+  color: #ff40b0;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+.comment {
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background: #fff9fc;
+  border: 1px solid #ffd6eb;
+}
+.comment strong {
+  color: #ff2e92;
+}
+.comment-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.comment-form textarea {
+  resize: none;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ff9cd9;
+  font-family: inherit;
+  outline: none;
+  transition: 0.3s;
+}
+.comment-form textarea:focus {
+  border-color: #ff40b0;
+  box-shadow: 0 0 6px rgba(255, 64, 176, 0.4);
+}
+.comment-form button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #ff5bb7, #ff85dc);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.comment-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 105, 180, 0.4);
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(90deg, #ff8ac8, #ffb6f9);
+  text-align: center;
+  padding: 20px;
+  color: white;
+  margin-top: 40px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}

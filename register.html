@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สมัครสมาชิก | KIMUJI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Kanit', sans-serif;
+      background: linear-gradient(135deg, #ffd6eb, #ffe6f0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .form-container {
+      background: white;
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeInUp 1s ease;
+      position: relative;
+    }
+
+    .form-container::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, #ff8ac8 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .form-container::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, #ffb6f9 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #ff2e92;
+      font-size: 28px;
+      text-shadow: 2px 2px 6px rgba(255, 105, 180, 0.3);
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #444;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 12px;
+      border: 1px solid #ff9cd9;
+      background: #fff9fc;
+      font-size: 16px;
+      transition: 0.3s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: #ff40b0;
+      box-shadow: 0 0 8px rgba(255, 64, 176, 0.4);
+      background: #fff;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff5bb7, #ff85dc);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
+    }
+
+    .form-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .form-link a {
+      color: #ff40b0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .form-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .success-message {
+      color: green;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 30px 20px;
+      }
+      .form-container h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>สมัครสมาชิก</h2>
+    <form id="register-form">
+      <div class="form-group">
+        <label for="username">ชื่อผู้ใช้</label>
+        <input type="text" id="username" name="username" placeholder="กรอกชื่อผู้ใช้" required>
+        <div id="username-error" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">รหัสผ่าน</label>
+        <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน" required>
+        <div id="password-error" class="error-message"></div>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">ยืนยันรหัสผ่าน</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่าน" required>
+        <div id="confirm-error" class="error-message"></div>
+      </div>
+      <button type="submit" class="submit-btn">สมัครสมาชิก</button>
+    </form>
+    <p class="form-link">เป็นสมาชิกอยู่แล้ว? <a href="login.html">เข้าสู่ระบบที่นี่</a></p>
+    <div id="success-message" class="success-message"></div>
+  </div>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // get values
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
+
+      // reset errors
+      document.getElementById('username-error').textContent = '';
+      document.getElementById('password-error').textContent = '';
+      document.getElementById('confirm-error').textContent = '';
+      document.getElementById('success-message').textContent = '';
+
+      let isValid = true;
+
+      // validation
+      if (username.length < 4) {
+        document.getElementById('username-error').textContent = 'ชื่อผู้ใช้ต้องมีอย่างน้อย 4 ตัวอักษร';
+        isValid = false;
+      }
+
+      if (password.length < 6) {
+        document.getElementById('password-error').textContent = 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';
+        isValid = false;
+      }
+
+      if (password !== confirmPassword) {
+        document.getElementById('confirm-error').textContent = 'รหัสผ่านไม่ตรงกัน';
+        isValid = false;
+      }
+
+      // ถ้าผ่าน
+      if (isValid) {
+        document.getElementById('success-message').textContent = 'สมัครสมาชิกสำเร็จแล้ว! กำลังนำไปสู่หน้าเข้าสู่ระบบ...';
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

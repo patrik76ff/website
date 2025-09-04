@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIMUJI | ดูหนังออนไลน์ อนิเมะ ซีรีส์</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">KIMUJI</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">หน้าแรก</a></li>
+        <li><a href="#">หนัง</a></li>
+        <li><a href="#">ซีรีส์</a></li>
+        <li><a href="#">อนิเมะ</a></li>
+        <li class="auth-links">
+          <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
+          <a href="register.html" class="register-btn">สมัครสมาชิก</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="ค้นหาหนัง, อนิเมะ...">
+      <button class="search-btn"><i class="fas fa-search"></i></button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1>ยินดีต้อนรับสู่ KIMUJI</h1>
+        <p>แหล่งรวมหนัง ซีรีส์ และอนิเมะคุณภาพสำหรับคุณ</p>
+        <a href="#featured-movies" class="cta-button">สำรวจหนังและอนิเมะ</a>
+      </div>
+    </section>
+
+    <section class="movie-list-section" id="featured-movies">
+      <h2>หนังและอนิเมะแนะนำ</h2>
+      <div class="movie-grid">
+        <div class="movie-card" data-movie-id="1">
+          <img src="https://via.placeholder.com/300x450/ff9cd9/FFFFFF?text=4KINGS" alt="4KINGS Poster">
+          <div class="movie-info">
+            <h3>4KINGS</h3>
+            <p>แนว: ต่อสู้, ยุค 90</p>
+          </div>
+        </div>
+        <div class="movie-card" data-movie-id="2">
+          <img src="https://via.placeholder.com/300x450/fba9d4/FFFFFF?text=A+Little+Thing+Called+Love" alt="A Little Thing Called Love Poster">
+          <div class="movie-info">
+            <h3>สิ่งเล็กๆ ที่เรียกว่ารัก</h3>
+            <p>แนว: ดราม่า, โรแมนติก</p>
+          </div>
+        </div>
+        <div class="movie-card" data-movie-id="3">
+          <img src="https://via.placeholder.com/300x450/ffb6f9/FFFFFF?text=Not+Friend" alt="Not Friend Poster">
+          <div class="movie-info">
+            <h3>เพื่อน(ไม่)สนิท</h3>
+            <p>แนว: แฟนตาซี, อนิเมะ</p>
+          </div>
+        </div>
+        <div class="movie-card" data-movie-id="4">
+          <img src="https://via.placeholder.com/300x450/ff6fcf/FFFFFF?text=How+To+Make+Millions+Before+Grandma+Dies" alt="How To Make Millions Before Grandma Dies Poster">
+          <div class="movie-info">
+            <h3>หลานม่า</h3>
+            <p>แนว: ระทึกขวัญ, ลึกลับ</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 KIMUJI. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.movie-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const movieId = card.getAttribute('data-movie-id');
+        window.location.href = `movie.html?id=${movieId}`;
+      });
+    });
+  </script>
+
+</body>
+</html>
